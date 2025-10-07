@@ -1,38 +1,22 @@
-package application.entities;
+package application.dtos;
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import application.entities.Client;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
-@Entity
-@Table(name = "movie")
-public class Movie {
+@XmlRootElement
+public class MovieDTO {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
   private String name;
 
-  @Column(nullable = true)
   private String description;
 
-  @Column(name = "is_rented")
   private Boolean isRented;
 
-  @Column(name = "rented_time")
   private Date rentedTime;
 
-  @ManyToOne
-  @JoinColumn(name = "client_id")
   private Client client;
 
   public Long getId() {
