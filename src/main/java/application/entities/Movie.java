@@ -3,6 +3,7 @@ package application.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,9 +32,12 @@ public class Movie {
   @Column(name = "rented_time")
   private Date rentedTime;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "client_id")
   private Client client;
+
+  @Column(name = "image_url")
+  private String imageUrl;
 
   public Long getId() {
     return id;
@@ -81,5 +85,13 @@ public class Movie {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
   }
 }

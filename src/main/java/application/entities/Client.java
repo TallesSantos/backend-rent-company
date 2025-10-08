@@ -1,6 +1,7 @@
 package application.entities;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -14,6 +15,9 @@ public class Client {
   @Column(nullable = false)
   private String name;
 
+  @OneToMany(fetch = FetchType.LAZY)
+  @JoinColumn(name = "client_id")
+  private final List<Movie> movies = new ArrayList<>();
 
   // Getters e setters
   public Long getId() { return id; }
@@ -22,4 +26,7 @@ public class Client {
   public String getName() { return name; }
   public void setName(String name) { this.name = name; }
 
+  public List<Movie> getMovies() {
+    return movies;
+  }
 }

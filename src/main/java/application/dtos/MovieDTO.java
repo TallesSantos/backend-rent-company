@@ -19,6 +19,8 @@ public class MovieDTO {
 
   private Client client;
 
+  private String imageUrl;
+
   public Long getId() {
     return id;
   }
@@ -65,5 +67,13 @@ public class MovieDTO {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public String getImageUrl() {
+    return imageUrl;
+  }
+
+  public void setImageUrl(String imageUrl) {
+    this.imageUrl = imageUrl;
   }
 }

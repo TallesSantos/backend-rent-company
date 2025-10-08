@@ -14,6 +14,7 @@ public class MovieConverter {
     dto.setRented(entity.getRented());
     dto.setRentedTime(entity.getRentedTime());
     dto.setClient(entity.getClient());
+    dto.setImageUrl(entity.getImageUrl());
 
     return dto;
   }

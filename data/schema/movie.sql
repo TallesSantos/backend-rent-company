@@ -5,3 +5,10 @@ CREATE TABLE movie (
     is_rented BIT NULL,
     rented_time DATETIME NULL
 );
+
+ALTER TABLE movie
+ADD client_id BIGINT NULL;
+
+
+ALTER TABLE movie
+ADD image_url VARCHAR(255) NULL;

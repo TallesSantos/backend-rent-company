@@ -12,15 +12,15 @@ public class ClientRepository {
   @PersistenceContext(unitName = "ClientPU")
   private EntityManager em;
 
-  public void salvar(Client cliente) {
+  public void save(Client cliente) {
     em.persist(cliente);
   }
 
-  public Client buscar(Long id) {
+  public Client findById(Long id) {
     return em.find(Client.class, id);
   }
 
   public List<Client> listarTodos() {
-    return em.createQuery("SELECT c FROM Client c", Client.class).getResultList();
+    return em.createQuery("SELECT c FROM Client c LEFT JOIN FETCH c.movie", Client.class).getResultList();
   }
 }
