@@ -1,0 +1,49 @@
+TODO excluir
+
+create table commented_item (
+
+	  id BIGINT IDENTITY(1,1) PRIMARY KEY,
+	  item_type VARCHAR(10),
+
+)
+
+create table liked_item (
+
+	  id BIGINT IDENTITY(1,1) PRIMARY KEY,
+	  item_type VARCHAR(10),
+
+)
+
+-------------
+
+create table list_liked_item (
+
+	id BIGINT IDENTITY(1,1) PRIMARY KEY,
+	liked_item_id BIGINT NOT NULL,
+	item_of_list_id BIGINT NOT NULL,
+)
+
+alter table movie add column liked_item_id
+
+ALTER TABLE list_liked_item
+ADD CONSTRAINT unique_like_for_item UNIQUE (liked_item_id, item_of_list_id);
+
+create table comment (
+	id BIGINT IDENTITY(1,1) PRIMARY KEY,
+	client_id BIGINT NOT NULL,
+	comment_text VARCHAR(1000) NOT NULL,
+	liked_item_id BIGINT NOT NULL
+)
+
+Alter table comment add FOREIGN KEY (liked_item_id) REFERENCES liked_item(id)
+
+select * from liked_item
+
+alter table list_like_movie add movie_id BIGINT
+
+alter table list_like_movie add FOREIGN KEY (movie_id) REFERENCES movie(id)
+
+
+alter table list_like_movie add client_id BIGINT
+
+alter table list_like_movie add FOREIGN KEY (client_id) REFERENCES client(id)

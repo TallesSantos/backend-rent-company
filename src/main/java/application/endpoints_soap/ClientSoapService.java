@@ -19,6 +19,7 @@ public class ClientSoapService {
 
   @WebMethod
   public List<ClientDTO> listAll() {
+    System.out.println("bateu na listagem de clientes");
     return clientService.listAll();
   }
 

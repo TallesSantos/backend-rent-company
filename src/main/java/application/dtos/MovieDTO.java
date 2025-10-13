@@ -3,6 +3,7 @@ package application.dtos;
 import application.entities.Client;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
+import java.util.List;
 
 @XmlRootElement
 public class MovieDTO {
@@ -20,6 +21,10 @@ public class MovieDTO {
   private Client client;
 
   private String imageUrl;
+
+  private List<String> nameOfLikers;
+
+  private List<CommentDTO> comments;
 
   public Long getId() {
     return id;
@@ -75,5 +80,21 @@ public class MovieDTO {
 
   public void setImageUrl(String imageUrl) {
     this.imageUrl = imageUrl;
+  }
+
+  public void setNameOfLikers(List<String> nameOfLikers) {
+    this.nameOfLikers = nameOfLikers;
+  }
+
+  public List<String> getNameOfLikers() {
+    return nameOfLikers;
+  }
+
+  public List<CommentDTO> getComments() {
+    return comments;
+  }
+
+  public void setComments(List<CommentDTO> comments) {
+    this.comments = comments;
   }
 }

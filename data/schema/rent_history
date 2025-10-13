@@ -1,0 +1,14 @@
+Create table rent_history (
+	id BIGINT IDENTITY(1,1) PRIMARY KEY,
+	client_id BIGINT NOT NULL,
+	movie_id BIGINT NOT NULL,
+	rented_time DATETIME NOT NULL
+)
+
+ALTER TABLE rent_history
+ADD client_id BIGINT FOREIGN KEY REFERENCES client(id);
+
+ALTER TABLE rent_history
+ADD movie_id BIGINT FOREIGN KEY REFERENCES movie(id);
+
+

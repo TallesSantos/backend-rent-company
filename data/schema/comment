@@ -1,0 +1,12 @@
+create table movie_comment (
+
+	id BIGINT IDENTITY(1,1) PRIMARY KEY,
+	movie_id BIGINT NOT NULL,
+	comment_id BIGINT NOT NULL
+
+)
+
+Alter table movie_comment add FOREIGN KEY (comment_id) REFERENCES comment(id)
+
+
+Alter table movie_comment add FOREIGN KEY (movie_id) REFERENCES movie(id)

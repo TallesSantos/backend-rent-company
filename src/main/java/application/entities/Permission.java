@@ -1,15 +1,23 @@
-package application.dtos.request;
+package application.entities;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@XmlAccessorType(XmlAccessType.FIELD)
-public class UpdateMovieRequest {
+@Entity
+@Table(name = "permission")
+public class Permission {
 
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
   private String name;
+
   private String description;
-  private String imageUrl;
 
   public Long getId() {
     return id;
@@ -33,13 +41,5 @@ public class UpdateMovieRequest {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public String getImageUrl() {
-    return imageUrl;
-  }
-
-  public void setImageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
   }
 }

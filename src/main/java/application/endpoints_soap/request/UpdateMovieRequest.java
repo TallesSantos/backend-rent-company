@@ -1,14 +1,23 @@
-package application.dtos.request;
+package application.endpoints_soap.request;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-public class CreateMovieRequest {
+public class UpdateMovieRequest {
 
+  private Long id;
   private String name;
-  public String description;
-  public String imageUrl;
+  private String description;
+  private String imageUrl;
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 
   public String getName() {
     return name;

@@ -2,7 +2,9 @@ package application.services;
 
 
 import application.converters.ClientConverter;
+import application.converters.RentHistoryConverter;
 import application.dtos.ClientDTO;
+import application.dtos.RentHistoryDTO;
 import application.entities.Client;
 import application.entities.Movie;
 import application.repositories.ClientRepository;
@@ -23,7 +25,7 @@ public class ClientService {
   private MovieRepository movieRepository;
 
   public List<ClientDTO> listAll() {
-    return clientRepository.listarTodos().stream()
+    return clientRepository.listAll().stream()
         .map(ClientConverter::toDto).collect(
             Collectors.toList());
   }
@@ -58,6 +60,16 @@ public class ClientService {
     clientRepository.save(client);
   }
 
+  public List<RentHistoryDTO> listRentHistoryByClientId(Long clientId) {
+    if (clientId == null) {
+      throw new RuntimeException("ClientId can't be null");
+    }
+    Client client = clientRepository.findById(clientId);
+    return client.getRentHistory().stream().map(rentHistory ->   RentHistoryConverter.toDto(rentHistory, "CLIENT")).collect(
+        Collectors.toList());
+  }
+
+
 
   private void validateRent(Client client, Movie movie) throws Exception {
     if (movie.getClient() != null) {
@@ -68,5 +80,6 @@ public class ClientService {
     }
 
   }
+
 
 }

@@ -1,0 +1,15 @@
+SELECT
+    f.name AS constraint_name,
+    OBJECT_NAME(f.parent_object_id) AS tabela,
+    COL_NAME(fc.parent_object_id, fc.parent_column_id) AS coluna,
+    OBJECT_NAME(f.referenced_object_id) AS tabela_referenciada
+FROM sys.foreign_keys AS f
+INNER JOIN sys.foreign_key_columns AS fc
+    ON f.OBJECT_ID = fc.constraint_object_id
+WHERE OBJECT_NAME(f.parent_object_id) = 'pedidos';
+
+SELECT
+    CONSTRAINT_NAME,
+    CONSTRAINT_TYPE
+FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+WHERE TABLE_NAME = 'nome_da_tabela';

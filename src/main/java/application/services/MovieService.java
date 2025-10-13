@@ -3,8 +3,8 @@ package application.services;
 
 import application.converters.MovieConverter;
 import application.dtos.MovieDTO;
-import application.dtos.request.CreateMovieRequest;
-import application.dtos.request.UpdateMovieRequest;
+import application.endpoints_soap.request.CreateMovieRequest;
+import application.endpoints_soap.request.UpdateMovieRequest;
 import application.entities.Movie;
 import application.repositories.MovieRepository;
 import jakarta.ejb.Stateless;

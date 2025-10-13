@@ -19,6 +19,9 @@ public class Client {
   @JoinColumn(name = "client_id")
   private final List<Movie> movies = new ArrayList<>();
 
+  @OneToMany(mappedBy = "client")
+  private List<RentHistory> rentHistory;
+
   // Getters e setters
   public Long getId() { return id; }
   public void setId(Long id) { this.id = id; }
@@ -28,5 +31,13 @@ public class Client {
 
   public List<Movie> getMovies() {
     return movies;
+  }
+
+  public List<RentHistory> getRentHistory() {
+    return rentHistory;
+  }
+
+  public void setRentHistory(List<RentHistory> rentHistory) {
+    this.rentHistory = rentHistory;
   }
 }

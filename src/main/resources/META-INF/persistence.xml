@@ -1,5 +1,18 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
   version="2.2">
+  <persistence-unit name="AddressPU" transaction-type="JTA">
+    <jta-data-source>java:/jdbc/SqlServerDS</jta-data-source>
+
+    <properties>
+      <!-- Dialeto Hibernate para SQL Server -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <!-- Validação opcional -->
+      <property name="hibernate.hbm2ddl.auto" value="validate"/>
+    </properties>
+  </persistence-unit>
+
   <persistence-unit name="MoviePU" transaction-type="JTA">
     <jta-data-source>java:/jdbc/SqlServerDS</jta-data-source>
 
@@ -25,4 +38,57 @@
       <property name="hibernate.hbm2ddl.auto" value="validate"/>
     </properties>
   </persistence-unit>
+
+  <persistence-unit name="PermissionPU" transaction-type="JTA">
+    <jta-data-source>java:/jdbc/SqlServerDS</jta-data-source>
+
+    <properties>
+      <!-- Dialeto Hibernate para SQL Server -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <!-- Validação opcional -->
+      <property name="hibernate.hbm2ddl.auto" value="validate"/>
+    </properties>
+  </persistence-unit>
+
+  <persistence-unit name="PhonePU" transaction-type="JTA">
+    <jta-data-source>java:/jdbc/SqlServerDS</jta-data-source>
+
+    <properties>
+      <!-- Dialeto Hibernate para SQL Server -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <!-- Validação opcional -->
+      <property name="hibernate.hbm2ddl.auto" value="validate"/>
+    </properties>
+  </persistence-unit>
+
+  <persistence-unit name="UserPU" transaction-type="JTA">
+    <jta-data-source>java:/jdbc/SqlServerDS</jta-data-source>
+
+    <properties>
+      <!-- Dialeto Hibernate para SQL Server -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <!-- Validação opcional -->
+      <property name="hibernate.hbm2ddl.auto" value="validate"/>
+    </properties>
+  </persistence-unit>
+
+  <persistence-unit name="RentHistoryPU" transaction-type="JTA">
+    <jta-data-source>java:/jdbc/SqlServerDS</jta-data-source>
+
+    <properties>
+      <!-- Dialeto Hibernate para SQL Server -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <!-- Validação opcional -->
+      <property name="hibernate.hbm2ddl.auto" value="validate"/>
+    </properties>
+  </persistence-unit>
+
 </persistence>

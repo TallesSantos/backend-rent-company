@@ -2,8 +2,8 @@ package application.endpoints_soap;
 
 
 import application.dtos.MovieDTO;
-import application.dtos.request.CreateMovieRequest;
-import application.dtos.request.UpdateMovieRequest;
+import application.endpoints_soap.request.CreateMovieRequest;
+import application.endpoints_soap.request.UpdateMovieRequest;
 import application.services.MovieService;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
@@ -21,6 +21,7 @@ public class MovieSoapService {
 
   @WebMethod
   public List<MovieDTO> listAll() {
+    System.out.println("bateu na listagem de movies");
     return movieService.listAll();
   }
 

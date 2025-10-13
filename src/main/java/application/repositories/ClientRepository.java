@@ -20,7 +20,9 @@ public class ClientRepository {
     return em.find(Client.class, id);
   }
 
-  public List<Client> listarTodos() {
-    return em.createQuery("SELECT c FROM Client c LEFT JOIN FETCH c.movie", Client.class).getResultList();
+  public List<Client> listAll() {
+    return em.createQuery("SELECT c FROM Client c "
+                                     + "LEFT JOIN FETCH c.movies "
+       , Client.class).getResultList();
   }
 }
