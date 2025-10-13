@@ -65,8 +65,7 @@ public class ClientService {
       throw new RuntimeException("ClientId can't be null");
     }
     Client client = clientRepository.findById(clientId);
-    return client.getRentHistory().stream().map(rentHistory ->   RentHistoryConverter.toDto(rentHistory, "CLIENT")).collect(
-        Collectors.toList());
+  return null;
   }
 
 

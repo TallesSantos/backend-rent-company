@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "fef1fb95-dcea-4b91-910e-990740f54513",
+		"name": "wild-fly-server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33696229",
+		"_collection_link": "https://teste6-4062.postman.co/workspace/Jboss~cee54cb9-a4de-43f9-ab60-b5eb51f2bcbe/collection/33696229-fef1fb95-dcea-4b91-910e-990740f54513?action=share&source=collection_link&creator=33696229"
+	},
+	"item": [
+		{
+			"name": "curser",
+			"item": [
+				{
+					"name": "movie",
+					"item": [
+						{
+							"name": "list all movies",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPAction",
+										"value": "\"\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n                  xmlns:end=\"http://endpoints_soap.application/\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <end:listAll/>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api-curser/MovieSoapService"
+							},
+							"response": []
+						},
+						{
+							"name": "create movie",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPAction",
+										"value": "\"\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n                  xmlns:end=\"http://endpoints_soap.application/\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <end:createMovie>\r\n\r\n        <arg0> \r\n            <name>teste</name>\r\n            <description> Testando </description>\r\n\r\n        </arg0>\r\n\r\n      </end:createMovie>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api-curser/MovieSoapService"
+							},
+							"response": []
+						},
+						{
+							"name": "update movie",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPAction",
+										"value": "\"\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n                  xmlns:end=\"http://endpoints_soap.application/\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <end:updateMovie>\r\n        <arg0>\r\n            <id>4</id>\r\n            <name>Sherlock Holmes atualizado</name>\r\n            <description> Um consultor de detetives gênio e excentrico em Londres atualizado... </description>\r\n        </arg0>\r\n\r\n\r\n      </end:updateMovie>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api-curser/MovieSoapService"
+							},
+							"response": []
+						},
+						{
+							"name": "remove movie",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPAction",
+										"value": "\"\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n                  xmlns:end=\"http://endpoints_soap.application/\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n\r\n      <end:deleteMovie>\r\n        <arg0>\r\n            6        \r\n        </arg0>\r\n\r\n      </end:deleteMovie>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api-curser/MovieSoapService"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "client",
+					"item": [
+						{
+							"name": "rent-history",
+							"item": [
+								{
+									"name": "list all rent-history",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{}"
+										},
+										"url": "http://localhost:8080/api-curser/api/clients/1/rent-history"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "list all client",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPAction",
+										"value": "\"\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n                  xmlns:end=\"http://endpoints_soap.application/\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <end:listAll />  \r\n   </soapenv:Body>\r\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api-curser/ClientSoapService"
+							},
+							"response": []
+						},
+						{
+							"name": "rent movie by clientId and movieId",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPAction",
+										"value": "\"\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n                  xmlns:end=\"http://endpoints_soap.application/\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <end:rentMovie>\r\n        <arg0> \r\n         1\r\n        </arg0>\r\n         <arg1> \r\n         1\r\n        </arg1>\r\n\r\n      </end:rentMovie>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api-curser/ClientSoapService"
+							},
+							"response": []
+						},
+						{
+							"name": "renturn movie by clientId and movieId",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "text/xml;charset=UTF-8",
+										"type": "text"
+									},
+									{
+										"key": "SOAPAction",
+										"value": "\"\"",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n                  xmlns:end=\"http://endpoints_soap.application/\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <end:returnMovie>\r\n        <arg0> \r\n         1\r\n        </arg0>\r\n         <arg1> \r\n         1\r\n        </arg1>\r\n\r\n      </end:returnMovie>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>",
+									"options": {
+										"raw": {
+											"language": "xml"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api-curser/ClientSoapService"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\r\n    \"username\":\"fulano\",\r\n    \"password\":123 \r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/api-curser/api/users/login"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

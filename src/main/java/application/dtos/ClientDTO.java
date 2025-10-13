@@ -3,7 +3,6 @@ package application.dtos;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-@XmlRootElement
 public class ClientDTO {
 
   private Integer id;

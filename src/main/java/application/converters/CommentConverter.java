@@ -20,6 +20,7 @@ public class CommentConverter {
   public static CommentDTO toDto(Comment entity) {
 
     CommentDTO commentDTO = new CommentDTO();
+    commentDTO.setId(entity.getId());
     commentDTO.setCommentText(entity.getCommentText());
     commentDTO.setNameOfLikers(entity.getNameOfLikers().stream()
         .map(Client::getName).collect(
