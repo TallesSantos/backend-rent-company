@@ -1,7 +1,0 @@
-CREATE TABLE client (
-    id BIGINT IDENTITY(1,1) PRIMARY KEY,
-    name NVARCHAR(255) NOT NULL
-);
-
-ALTER TABLE movie
-ADD client_id BIGINT FOREIGN KEY REFERENCES client(id);
