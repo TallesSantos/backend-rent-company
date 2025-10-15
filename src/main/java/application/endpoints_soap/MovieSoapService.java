@@ -21,7 +21,6 @@ public class MovieSoapService {
 
   @WebMethod
   public List<MovieDTO> listAll() {
-    System.out.println("bateu na listagem de movies");
     return movieService.listAll();
   }
 

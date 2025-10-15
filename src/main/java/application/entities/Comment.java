@@ -11,7 +11,9 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import java.util.List;
+import javax.xml.crypto.Data;
 
 @Entity
 @Table(name = "comment")
@@ -29,6 +31,10 @@ public class Comment {
   private Movie movie;
 
   @ManyToOne
+  @JoinColumn(name = "client_id")
+  private Client client;
+
+  @ManyToOne
   @JoinColumn(name = "comment_parent_id")
   private Comment parent;
 
@@ -42,6 +48,9 @@ public class Comment {
       inverseJoinColumns = @JoinColumn(name = "client_id") // FK da outra entidade
   )
   private List<Client> nameOfLikers;
+
+  @Column(name = "published_at")
+  private LocalDateTime publishedAt;
 
   public Long getId() {
     return id;
@@ -89,5 +98,21 @@ public class Comment {
 
   public void setChildren(List<Comment> children) {
     this.children = children;
+  }
+
+  public LocalDateTime getPublishedAt() {
+    return publishedAt;
+  }
+
+  public void setPublishedAt(LocalDateTime publishedAt) {
+    this.publishedAt = publishedAt;
+  }
+
+  public Client getClient() {
+    return client;
+  }
+
+  public void setClient(Client client) {
+    this.client = client;
   }
 }

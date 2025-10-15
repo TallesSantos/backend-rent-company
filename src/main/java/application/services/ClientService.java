@@ -30,6 +30,10 @@ public class ClientService {
             Collectors.toList());
   }
 
+  public Client findById(Long id){
+    return clientRepository.findById(id);
+  }
+
   public void rentMovie(Long clientId, Long movieId) throws Exception {
 
     Client client = clientRepository.findById(clientId);

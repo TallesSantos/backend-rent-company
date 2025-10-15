@@ -91,4 +91,17 @@
     </properties>
   </persistence-unit>
 
+  <persistence-unit name="CommentPU" transaction-type="JTA">
+    <jta-data-source>java:/jdbc/SqlServerDS</jta-data-source>
+
+    <properties>
+      <!-- Dialeto Hibernate para SQL Server -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="true"/>
+      <!-- Validação opcional -->
+      <property name="hibernate.hbm2ddl.auto" value="validate"/>
+    </properties>
+  </persistence-unit>
+
 </persistence>

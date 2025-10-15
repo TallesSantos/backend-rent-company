@@ -36,7 +36,8 @@ public class Movie {
   @Column(name = "rented_time")
   private Date rentedTime;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+
+  @ManyToOne
   @JoinColumn(name = "client_id")
   private Client client;
 

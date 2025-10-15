@@ -31,6 +31,9 @@ public class User {
 
   private String email;
 
+  @Column(name = "document_number")
+  private String documentNumber;
+
   @Column(name = "user_type")
   @Enumerated(EnumType.STRING)
   private UserType userType;
@@ -139,5 +142,13 @@ public class User {
 
   public void setClient(Client client) {
     this.client = client;
+  }
+
+  public String getDocumentNumber() {
+    return documentNumber;
+  }
+
+  public void setDocumentNumber(String documentNumber) {
+    this.documentNumber = documentNumber;
   }
 }

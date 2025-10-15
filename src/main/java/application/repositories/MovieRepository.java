@@ -28,4 +28,8 @@ public class MovieRepository {
   public List<Movie> listarTodos() {
     return em.createQuery("SELECT m FROM Movie m LEFT JOIN FETCH m.client", Movie.class).getResultList();
   }
+
+  public Movie findByIdWichComments(Long movieId) {
+    return em.createQuery("SELECT m FROM Movie m LEFT JOIN FETCH m.client LEFT JOIN FETCH m.comments WHERE m.id =" + movieId, Movie.class).getResultList().get(0);
+  }
 }

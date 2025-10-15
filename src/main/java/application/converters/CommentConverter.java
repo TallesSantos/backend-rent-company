@@ -11,10 +11,8 @@ public class CommentConverter {
 
   public static List<CommentDTO> toDto(Movie entity) {
 
-    return entity.getComments().stream()
-        .filter(comment -> comment.getParent() == null)
-        .map(CommentConverter::toDto).collect(
-            Collectors.toList());
+    return entity.getComments().stream().filter(comment -> comment.getParent() == null)
+        .map(CommentConverter::toDto).collect(Collectors.toList());
   }
 
   public static CommentDTO toDto(Comment entity) {
@@ -22,13 +20,14 @@ public class CommentConverter {
     CommentDTO commentDTO = new CommentDTO();
     commentDTO.setId(entity.getId());
     commentDTO.setCommentText(entity.getCommentText());
-    commentDTO.setNameOfLikers(entity.getNameOfLikers().stream()
-        .map(Client::getName).collect(
-        Collectors.toList()));
+    commentDTO.setNameOfLikers(
+        entity.getNameOfLikers().stream().map(Client::getName).collect(Collectors.toList()));
     commentDTO.setChildresnComments(
-        entity.getChildren().stream().map(CommentConverter::toDto).collect(
-            Collectors.toList()));
-
+        entity.getChildren().stream().map(CommentConverter::toDto).collect(Collectors.toList()));
+    String publishedAt =
+        entity.getPublishedAt() != null ? entity.getPublishedAt().toString() : null;
+    commentDTO.setPublishDate(publishedAt);
+    commentDTO.setOwnerName(entity.getClient().getName());
     return commentDTO;
   }
 }

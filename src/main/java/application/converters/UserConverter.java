@@ -23,38 +23,47 @@ public class UserConverter {
     userDTO.setEmail(entity.getEmail());
     userDTO.setUserType(entity.getUserType().toString());
 
-    List<AddressDTO> addresses = new ArrayList<>();
-    for (Address address : entity.getAddresses()) {
-      AddressDTO addressDTO = new AddressDTO();
-      addressDTO.setId(addressDTO.getId());
-      addressDTO.setCountry(address.getCountry());
-      addressDTO.setState(address.getState());
-      addressDTO.setCity(address.getCity());
-      addressDTO.setStreetAddress(address.getStreetAddress());
-      addressDTO.setNumber(address.getNumber());
-      addressDTO.setComment(address.getComment());
-      addresses.add(addressDTO);
-    }
-    userDTO.setAddresses(addresses);
+    if(entity.getAddresses() != null) {
+      List<AddressDTO> addresses = new ArrayList<>();
 
-    List<PhoneDTO> phones = new ArrayList<>();
-    for (Phone phone : entity.getPhone()) {
-      PhoneDTO phoneDTO = new PhoneDTO();
-      phoneDTO.setId(phone.getId());
-      phoneDTO.setPhoneNumber(phone.getPhoneNumber());
-      phones.add(phoneDTO);
-    }
-    userDTO.setPhone(phones);
+      for (Address address : entity.getAddresses()) {
+        AddressDTO addressDTO = new AddressDTO();
+        addressDTO.setId(addressDTO.getId());
+        addressDTO.setCountry(address.getCountry());
+        addressDTO.setState(address.getState());
+        addressDTO.setCity(address.getCity());
+        addressDTO.setStreetAddress(address.getStreetAddress());
+        addressDTO.setNumber(address.getNumber());
+        addressDTO.setComment(address.getComment());
+        addresses.add(addressDTO);
 
-    List<PermissionDTO> permissions = new ArrayList<>();
-    for (Permission permission : entity.getPermissionRoles()) {
-      PermissionDTO permissionDTO = new PermissionDTO();
-      permissionDTO.setId(permission.getId());
-      permissionDTO.setName(permission.getName());
-      permissionDTO.setDescription(permission.getDescription());
-      permissions.add(permissionDTO);
+        userDTO.setAddresses(addresses);
+      }
     }
-    userDTO.setPermissionRoles(permissions);
+
+
+      if(entity.getPhone() != null) {
+        List<PhoneDTO> phones = new ArrayList<>();
+        for (Phone phone : entity.getPhone()) {
+          PhoneDTO phoneDTO = new PhoneDTO();
+          phoneDTO.setId(phone.getId());
+          phoneDTO.setPhoneNumber(phone.getPhoneNumber());
+          phones.add(phoneDTO);
+        }
+        userDTO.setPhone(phones);
+      }
+
+      if(entity.getPermissionRoles() != null) {
+        List<PermissionDTO> permissions = new ArrayList<>();
+        for (Permission permission : entity.getPermissionRoles()) {
+          PermissionDTO permissionDTO = new PermissionDTO();
+          permissionDTO.setId(permission.getId());
+          permissionDTO.setName(permission.getName());
+          permissionDTO.setDescription(permission.getDescription());
+          permissions.add(permissionDTO);
+        }
+        userDTO.setPermissionRoles(permissions);
+      }
 
     ClientDTO clientDTO = new ClientDTO();
     if(entity.getClient()!= null){

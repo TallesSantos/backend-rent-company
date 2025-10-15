@@ -8,6 +8,10 @@ public class CommentDTO {
 
   private String commentText;
 
+  private String ownerName;
+
+  private String publishDate;
+
   private List<String> nameOfLikers;
 
   private List<CommentDTO> childresnComments;
@@ -35,6 +39,22 @@ public class CommentDTO {
 
   public void setChildresnComments(List<CommentDTO> childresnComments) {
     this.childresnComments = childresnComments;
+  }
+
+  public String getOwnerName() {
+    return ownerName;
+  }
+
+  public void setOwnerName(String ownerName) {
+    this.ownerName = ownerName;
+  }
+
+  public String getPublishDate() {
+    return publishDate;
+  }
+
+  public void setPublishDate(String publishDate) {
+    this.publishDate = publishDate;
   }
 
   public Long getId() {
