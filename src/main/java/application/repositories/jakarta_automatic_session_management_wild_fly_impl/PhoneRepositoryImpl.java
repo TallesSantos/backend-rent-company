@@ -1,4 +1,4 @@
-package application.repositories.automatic_session_management_wild_fly_impl;
+package application.repositories.jakarta_automatic_session_management_wild_fly_impl;
 
 import application.entities.Phone;
 import jakarta.ejb.Stateless;

@@ -1,4 +1,4 @@
-package application.repositories.hibernate_manual_management_impl;
+package application.repositories.hibernate_manual_session_management_impl;
 
 import application.entities.Address;
 import application.entities.Client;

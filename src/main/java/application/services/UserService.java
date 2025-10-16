@@ -11,7 +11,7 @@ import application.entities.Client;
 import application.entities.User;
 import application.enuns.UserType;
 import application.repositories.UserRepository;
-import application.repositories.automatic_session_management_wild_fly_impl.AddressRepositoryImpl;
+import application.repositories.jakarta_automatic_session_management_wild_fly_impl.AddressRepositoryImpl;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;

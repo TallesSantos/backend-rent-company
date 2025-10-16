@@ -5,6 +5,8 @@ import application.endpoints_rest.request.AddAddressRequest;
 import application.endpoints_rest.request.UserLoginRequest;
 import application.endpoints_rest.request.UserSignUpRequest;
 import application.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
@@ -15,12 +17,14 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
 @Path("/users")
+@Tag(name = "Usuários", description = "Gerenciamento de usuários")
 public class UserController {
 
   @Inject
   private UserService userService;
 
 
+  @Operation(summary = "Login do usuario")
   @Path("/login")
   @POST
   @Produces({MediaType.APPLICATION_JSON})
@@ -29,6 +33,7 @@ public class UserController {
     return userService.login(request);
   }
 
+  @Operation(summary = "Cadastro do usuario")
   @Path("/sign-up")
   @POST
   @Produces({MediaType.APPLICATION_JSON})
