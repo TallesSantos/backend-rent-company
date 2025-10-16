@@ -2,6 +2,7 @@ package application.services;
 
 import application.converters.UserConverter;
 import application.dtos.UserDTO;
+import application.endpoints_rest.exceptions.SignUpException;
 import application.endpoints_rest.request.AddAddressRequest;
 import application.endpoints_rest.request.UserLoginRequest;
 import application.endpoints_rest.request.UserSignUpRequest;
@@ -9,36 +10,35 @@ import application.entities.Address;
 import application.entities.Client;
 import application.entities.User;
 import application.enuns.UserType;
-import application.endpoints_rest.exceptions.SignUpException;
-import application.repositories.automatic_session_management_wild_fly.AddressRepository;
-import application.repositories.automatic_session_management_wild_fly.ClientRepository;
-import application.repositories.hibernate_manual_management.UserRepositoryHibernateImp;
+import application.repositories.UserRepository;
+import application.repositories.automatic_session_management_wild_fly_impl.AddressRepositoryImpl;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import java.util.ArrayList;
 
 @Stateless
 public class UserService {
 
   @Inject
-  private UserRepositoryHibernateImp userRepositoryHibernateImp;
-
+  @Named("jakartaRepo")
+  private UserRepository userRepository;
 
   @Inject
   private ClientService clientService;
 
   @Inject
-  private AddressRepository addressRepository;
+  private AddressRepositoryImpl addressRepositoryImpl;
 
   public UserDTO login(UserLoginRequest request) throws Exception {
-    User user = userRepositoryHibernateImp
+    User user = userRepository
         .findUserByUsernameAndPassword(request.getUsername(), request.getPassword());
 
-    if(user== null){
+    if (user == null) {
       throw new Exception("User not find");
     }
 
-    return  UserConverter.toDto(user);
+    return UserConverter.toDto(user);
 
   }
 
@@ -52,28 +52,28 @@ public class UserService {
     user.setUsername(request.getUsername());
     user.setPassword(request.getPassword());
 
-    if(request.getDocumentNumber()!= null){
+    if (request.getDocumentNumber() != null) {
       user.setDocumentNumber(request.getDocumentNumber());
-    }else{
+    } else {
       user.setDocumentNumber("No informed");
     }
 
-    if(request.getUserType() != null && request.getUserType().equals("CLIENT")){
+    if (request.getUserType() != null && request.getUserType().equals("CLIENT")) {
       Client client = new Client();
       client.setName(request.getNickName());
       user.setClient(client);
       user.setUserType(UserType.CLIENT);
     }
-    userRepositoryHibernateImp.save(user);
-    return  UserConverter.toDto(user);
+    userRepository.save(user);
+    return UserConverter.toDto(user);
 
   }
 
-  public void addAddressToUser(Long userId, AddAddressRequest request){
-    User user = userRepositoryHibernateImp.findById(userId);
+  public void addAddressToUser(Long userId, AddAddressRequest request) {
+    User user = userRepository.findById(userId);
 
-    if(user.getAddresses()== null){
-    user.setAddresses(new ArrayList<>());
+    if (user.getAddresses() == null) {
+      user.setAddresses(new ArrayList<>());
     }
 
     Address newAddress = new Address();
@@ -87,27 +87,27 @@ public class UserService {
 
     user.getAddresses().add(newAddress);
 
-    addressRepository.save(newAddress);
-    userRepositoryHibernateImp.save(user);
+    addressRepositoryImpl.save(newAddress);
+    userRepository.save(user);
   }
 
 
-  private void validateUserSignUpRequest(UserSignUpRequest request){
+  private void validateUserSignUpRequest(UserSignUpRequest request) {
     SignUpException exception = new SignUpException("Error try sign up user");
-    if(request.getFullName() == null || request.getFullName().trim().equals("")){
-       exception.addFieldError("name", "name cannot be null");
+    if (request.getFullName() == null || request.getFullName().trim().equals("")) {
+      exception.addFieldError("name", "name cannot be null");
     }
-    if(request.getEmail() == null || request.getEmail().trim().equals("")){
+    if (request.getEmail() == null || request.getEmail().trim().equals("")) {
       exception.addFieldError("email", "email cannot be null");
     }
-    if(request.getUsername() == null || request.getUsername().trim().equals("")){
+    if (request.getUsername() == null || request.getUsername().trim().equals("")) {
       exception.addFieldError("username", "username cannot be null");
     }
 
-    if(request.getPassword() == null || request.getPassword().trim().equals("")){
+    if (request.getPassword() == null || request.getPassword().trim().equals("")) {
       exception.addFieldError("password", "password cannot be null");
     }
-    if(!exception.getFields().isEmpty()){
+    if (!exception.getFields().isEmpty()) {
       throw exception;
     }
   }

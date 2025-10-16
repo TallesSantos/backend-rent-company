@@ -1,4 +1,4 @@
-package application.repositories.automatic_session_management_wild_fly;
+package application.repositories.automatic_session_management_wild_fly_impl;
 
 import application.entities.Movie;
 import jakarta.ejb.Stateless;
@@ -10,7 +10,7 @@ import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
 @Stateless
-public class MovieRepository {
+public class MovieRepositoryImpl {
 
   @PersistenceContext(unitName = "MoviePU")
   private EntityManager em;

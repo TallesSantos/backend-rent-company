@@ -6,8 +6,8 @@ import application.dtos.ClientDTO;
 import application.dtos.RentHistoryDTO;
 import application.entities.Client;
 import application.entities.Movie;
-import application.repositories.automatic_session_management_wild_fly.ClientRepository;
-import application.repositories.automatic_session_management_wild_fly.MovieRepository;
+import application.repositories.automatic_session_management_wild_fly_impl.ClientRepositoryImpl;
+import application.repositories.automatic_session_management_wild_fly_impl.MovieRepositoryImpl;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import java.util.Date;
@@ -18,25 +18,25 @@ import java.util.stream.Collectors;
 public class ClientService {
 
   @Inject
-  private ClientRepository clientRepository;
+  private ClientRepositoryImpl clientRepositoryImpl;
 
   @Inject
-  private MovieRepository movieRepository;
+  private MovieRepositoryImpl movieRepositoryImpl;
 
   public List<ClientDTO> listAll() {
-    return clientRepository.listAll().stream()
+    return clientRepositoryImpl.listAll().stream()
         .map(ClientConverter::toDto).collect(
             Collectors.toList());
   }
 
   public Client findById(Long id){
-    return clientRepository.findById(id);
+    return clientRepositoryImpl.findById(id);
   }
 
   public void rentMovie(Long clientId, Long movieId) throws Exception {
 
-    Client client = clientRepository.findById(clientId);
-    Movie movie = movieRepository.findById(movieId);
+    Client client = clientRepositoryImpl.findById(clientId);
+    Movie movie = movieRepositoryImpl.findById(movieId);
 
     validateRent(client, movie);
     movie.setRented(true);
@@ -44,30 +44,30 @@ public class ClientService {
     movie.setClient(client);
     client.getMovies().add(movie);
 
-    movieRepository.save(movie);
-    clientRepository.save(client);
+    movieRepositoryImpl.save(movie);
+    clientRepositoryImpl.save(client);
 
 
   }
 
   public void returnFilm(Long clientId, Long movieId) throws Exception {
-    Client client = clientRepository.findById(clientId);
-    Movie movie = movieRepository.findById(movieId);
+    Client client = clientRepositoryImpl.findById(clientId);
+    Movie movie = movieRepositoryImpl.findById(movieId);
 
     client.getMovies().remove(movie);
     movie.setClient(null);
     movie.setRentedTime(null);
     movie.setRented(false);
 
-    movieRepository.save(movie);
-    clientRepository.save(client);
+    movieRepositoryImpl.save(movie);
+    clientRepositoryImpl.save(client);
   }
 
   public List<RentHistoryDTO> listRentHistoryByClientId(Long clientId) {
     if (clientId == null) {
       throw new RuntimeException("ClientId can't be null");
     }
-    Client client = clientRepository.findById(clientId);
+    Client client = clientRepositoryImpl.findById(clientId);
   return null;
   }
 
@@ -85,6 +85,6 @@ public class ClientService {
 
 
   public void save(Client client) {
-    clientRepository.save(client);
+    clientRepositoryImpl.save(client);
   }
 }

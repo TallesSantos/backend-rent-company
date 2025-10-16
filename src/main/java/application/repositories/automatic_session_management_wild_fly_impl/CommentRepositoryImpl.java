@@ -1,4 +1,4 @@
-package application.repositories.automatic_session_management_wild_fly;
+package application.repositories.automatic_session_management_wild_fly_impl;
 
 import application.entities.Comment;
 import jakarta.ejb.Stateless;
@@ -6,7 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 @Stateless
-public class CommentRepository {
+public class CommentRepositoryImpl {
 
   @PersistenceContext(unitName = "CommentPU")
   private EntityManager em;

@@ -1,13 +1,14 @@
-package application.repositories.hibernate_manual_management;
+package application.repositories.hibernate_manual_management_impl;
 
 import application.entities.Address;
 import application.entities.Client;
 import application.entities.Comment;
 import application.entities.Movie;
-import application.entities.Permission;
 import application.entities.Phone;
 import application.entities.RentHistory;
+import application.repositories.UserRepository;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,7 +16,8 @@ import org.hibernate.cfg.Configuration;
 import application.entities.User;
 
 @ApplicationScoped
-public class UserRepositoryHibernateImp {
+@Named("HibernateRepo")
+public class UserRepositoryHibernateImp implements UserRepository {
 
   // SessionFactory não é mais estática inicializada na carga da classe
   private SessionFactory sessionFactory;
@@ -65,6 +67,7 @@ public class UserRepositoryHibernateImp {
   }
 
   // Exemplo: listar todos os usuários
+  @Override
   public List<User> listAll() {
     try (Session session = openSession()) {
       return session.createQuery("FROM User", User.class).list();
@@ -74,6 +77,7 @@ public class UserRepositoryHibernateImp {
   }
 
   // Exemplo: salvar um usuário
+  @Override
   public void save(User user) {
     try (Session session = openSession()) {
       session.beginTransaction();
@@ -84,12 +88,14 @@ public class UserRepositoryHibernateImp {
     }
   }
 
+  @Override
   public User findById(Long id) {
     try (Session session = openSession()) {
       return session.get(User.class, id);
     }
   }
 
+  @Override
   public User findUserByUsernameAndPassword(String username, String password) {
 
     try (Session session = openSession()) {

@@ -9,9 +9,9 @@ import application.endpoints_soap.request.UpdateMovieRequest;
 import application.entities.Client;
 import application.entities.Comment;
 import application.entities.Movie;
-import application.repositories.automatic_session_management_wild_fly.ClientRepository;
-import application.repositories.automatic_session_management_wild_fly.CommentRepository;
-import application.repositories.automatic_session_management_wild_fly.MovieRepository;
+import application.repositories.automatic_session_management_wild_fly_impl.ClientRepositoryImpl;
+import application.repositories.automatic_session_management_wild_fly_impl.CommentRepositoryImpl;
+import application.repositories.automatic_session_management_wild_fly_impl.MovieRepositoryImpl;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import java.time.LocalDateTime;
@@ -22,22 +22,22 @@ import java.util.stream.Collectors;
 public class MovieService {
 
   @Inject
-  private MovieRepository movieRepository;
+  private MovieRepositoryImpl movieRepositoryImpl;
 
   @Inject
-  private ClientRepository clientRepository;
+  private ClientRepositoryImpl clientRepositoryImpl;
 
   @Inject
-  private CommentRepository commentRepository;
+  private CommentRepositoryImpl commentRepositoryImpl;
 
   public List<MovieDTO> listAll() {
-    return movieRepository.listarTodos().stream()
+    return movieRepositoryImpl.listarTodos().stream()
         .map(MovieConverter::toDto).collect(
         Collectors.toList());
   }
 
   public Movie findById(Long id){
-    return  movieRepository.findById(id);
+    return  movieRepositoryImpl.findById(id);
   }
 
   public void createMovie(CreateMovieRequest request){
@@ -46,7 +46,7 @@ public class MovieService {
       movie.setDescription(request.getDescription());
       movie.setImageUrl(request.getImageUrl());
       movie.setRented(false);
-      movieRepository.save(movie);
+      movieRepositoryImpl.save(movie);
   }
 
   public void updateMovie(UpdateMovieRequest request) throws Exception {
@@ -55,7 +55,7 @@ public class MovieService {
       throw new Exception("property id cannot be null");
     }
 
-    Movie movie = movieRepository.findById((long)request.getId());
+    Movie movie = movieRepositoryImpl.findById((long)request.getId());
 
     if(request.getName() != null){
       movie.setName(request.getName());
@@ -68,7 +68,7 @@ public class MovieService {
     if(request.getImageUrl() != null){
       movie.setImageUrl(request.getImageUrl());
     }
-    movieRepository.save(movie);
+    movieRepositoryImpl.save(movie);
 
   }
 
@@ -76,19 +76,19 @@ public class MovieService {
     if(id == null){
       throw new Exception("id cannot be null");
     }
-    movieRepository.removeById(id);
+    movieRepositoryImpl.removeById(id);
   }
 
   public Comment findCommentById(Long commentId){
-    return commentRepository.findById(commentId);
+    return commentRepositoryImpl.findById(commentId);
   }
   public void saveComment(Comment comment){
-    commentRepository.save(comment);
+    commentRepositoryImpl.save(comment);
   }
 
   public void createMovieComment(Long movieId, CommentRequest request) {
-    Movie movie =  movieRepository.findByIdWichComments(movieId);
-    Client client = clientRepository.findById(request.getClientId());
+    Movie movie =  movieRepositoryImpl.findByIdWichComments(movieId);
+    Client client = clientRepositoryImpl.findById(request.getClientId());
 
     Comment comment = new Comment();
     comment.setPublishedAt(LocalDateTime.now());
@@ -97,14 +97,14 @@ public class MovieService {
     comment.setMovie(movie);
     movie.getComments().add(comment);
 
-    commentRepository.save(comment);
-    movieRepository.save(movie);
+    commentRepositoryImpl.save(comment);
+    movieRepositoryImpl.save(movie);
   }
 
   public void createChildrenComment(Long movieId, Long commentId, CommentRequest request) {
-    Movie movie = movieRepository.findById(movieId);
-    Client client = clientRepository.findById(request.getClientId());
-    Comment parentComment =commentRepository.findById(commentId);
+    Movie movie = movieRepositoryImpl.findById(movieId);
+    Client client = clientRepositoryImpl.findById(request.getClientId());
+    Comment parentComment = commentRepositoryImpl.findById(commentId);
 
     Comment newComment = new Comment();
     newComment.setPublishedAt(LocalDateTime.now());
@@ -115,7 +115,7 @@ public class MovieService {
     newComment.setParent(parentComment);
     parentComment.getChildren().add(newComment);
 
-    commentRepository.save(newComment);
-    commentRepository.save(parentComment);
+    commentRepositoryImpl.save(newComment);
+    commentRepositoryImpl.save(parentComment);
   }
 }

@@ -1,4 +1,4 @@
-package application.repositories.automatic_session_management_wild_fly;
+package application.repositories.automatic_session_management_wild_fly_impl;
 
 import application.entities.Phone;
 import jakarta.ejb.Stateless;
@@ -7,7 +7,7 @@ import jakarta.persistence.PersistenceContext;
 import java.util.List;
 
 @Stateless
-public class PhoneRepository {
+public class PhoneRepositoryImpl {
   @PersistenceContext(unitName = "PhonePU")
   private EntityManager em;
 
