@@ -14,8 +14,8 @@
   </persistence-unit>
 
   <persistence-unit name="MoviePU" transaction-type="JTA">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <jta-data-source>java:/jdbc/SqlServerDS</jta-data-source>
-
     <properties>
       <!-- Dialeto Hibernate para SQL Server -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
@@ -65,9 +65,9 @@
     </properties>
   </persistence-unit>
 
-  <persistence-unit name="UserPU" transaction-type="JTA">
+  <persistence-unit name="UserPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <jta-data-source>java:/jdbc/SqlServerDS</jta-data-source>
-
     <properties>
       <!-- Dialeto Hibernate para SQL Server -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>

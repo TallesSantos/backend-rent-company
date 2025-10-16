@@ -5,6 +5,9 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.query.NativeQuery;
+import org.hibernate.query.Query;
 
 @Stateless
 public class MovieRepository {
@@ -12,24 +15,36 @@ public class MovieRepository {
   @PersistenceContext(unitName = "MoviePU")
   private EntityManager em;
 
+
+  private Session getSession(){
+    return em.unwrap(Session.class);
+  }
   public void save(Movie movie) {
-    em.persist(movie);
+    getSession().persist(movie);
   }
 
   public Movie findById(Long id) {
-    return em.find(Movie.class, id);
+    return getSession().find(Movie.class, id);
   }
 
   public void removeById(Long id){
     Movie movie = findById(id);
-    em.remove(movie);
+    getSession().remove(movie);
+  }
+  public List<Movie> listarTodos() {
+
+    String sql = "SELECT m.* FROM movie m LEFT JOIN client c ON m.client_id = c.id";
+    NativeQuery<Movie> query = getSession().createNativeQuery(sql, Movie.class);
+    return query.getResultList();
   }
 
-  public List<Movie> listarTodos() {
-    return em.createQuery("SELECT m FROM Movie m LEFT JOIN FETCH m.client", Movie.class).getResultList();
-  }
 
   public Movie findByIdWichComments(Long movieId) {
-    return em.createQuery("SELECT m FROM Movie m LEFT JOIN FETCH m.client LEFT JOIN FETCH m.comments WHERE m.id =" + movieId, Movie.class).getResultList().get(0);
+
+    Query<Movie> query = getSession().createQuery(
+        "SELECT m FROM Movie m LEFT JOIN FETCH m.client LEFT JOIN FETCH m.comments WHERE m.id = :id",
+        Movie.class);
+    query.setParameter("id", movieId);
+    return query.uniqueResult();
   }
 }
