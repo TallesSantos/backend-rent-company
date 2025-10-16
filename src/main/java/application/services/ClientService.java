@@ -2,13 +2,12 @@ package application.services;
 
 
 import application.converters.ClientConverter;
-import application.converters.RentHistoryConverter;
 import application.dtos.ClientDTO;
 import application.dtos.RentHistoryDTO;
 import application.entities.Client;
 import application.entities.Movie;
-import application.repositories.ClientRepository;
-import application.repositories.MovieRepository;
+import application.repositories.automatic_session_management_wild_fly.ClientRepository;
+import application.repositories.automatic_session_management_wild_fly.MovieRepository;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import java.util.Date;
@@ -85,4 +84,7 @@ public class ClientService {
   }
 
 
+  public void save(Client client) {
+    clientRepository.save(client);
+  }
 }

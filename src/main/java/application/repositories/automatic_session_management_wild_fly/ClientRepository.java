@@ -1,4 +1,4 @@
-package application.repositories;
+package application.repositories.automatic_session_management_wild_fly;
 
 import application.entities.Client;
 import jakarta.ejb.Stateless;

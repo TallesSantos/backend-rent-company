@@ -1,6 +1,5 @@
-package application.repositories;
+package application.repositories.automatic_session_management_wild_fly;
 
-import application.entities.Address;
 import application.entities.Permission;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;

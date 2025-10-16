@@ -10,9 +10,9 @@ import application.entities.Client;
 import application.entities.User;
 import application.enuns.UserType;
 import application.endpoints_rest.exceptions.SignUpException;
-import application.repositories.AddressRepository;
-import application.repositories.ClientRepository;
-import application.repositories.UserRepository;
+import application.repositories.automatic_session_management_wild_fly.AddressRepository;
+import application.repositories.automatic_session_management_wild_fly.ClientRepository;
+import application.repositories.hibernate_manual_management.UserRepositoryHibernateImp;
 import jakarta.ejb.Stateless;
 import jakarta.inject.Inject;
 import java.util.ArrayList;
@@ -21,17 +21,17 @@ import java.util.ArrayList;
 public class UserService {
 
   @Inject
-  private UserRepository userRepository;
+  private UserRepositoryHibernateImp userRepositoryHibernateImp;
 
 
   @Inject
-  private ClientRepository clientRepository;
+  private ClientService clientService;
 
   @Inject
   private AddressRepository addressRepository;
 
   public UserDTO login(UserLoginRequest request) throws Exception {
-    User user = userRepository
+    User user = userRepositoryHibernateImp
         .findUserByUsernameAndPassword(request.getUsername(), request.getPassword());
 
     if(user== null){
@@ -45,7 +45,6 @@ public class UserService {
   public UserDTO userSignUp(UserSignUpRequest request) {
 
     validateUserSignUpRequest(request);
-
     User user = new User();
 
     user.setName(request.getFullName());
@@ -64,15 +63,14 @@ public class UserService {
       client.setName(request.getNickName());
       user.setClient(client);
       user.setUserType(UserType.CLIENT);
-      clientRepository.save(client);
     }
-    userRepository.save(user);
+    userRepositoryHibernateImp.save(user);
     return  UserConverter.toDto(user);
 
   }
 
   public void addAddressToUser(Long userId, AddAddressRequest request){
-    User user = userRepository.findById(userId);
+    User user = userRepositoryHibernateImp.findById(userId);
 
     if(user.getAddresses()== null){
     user.setAddresses(new ArrayList<>());
@@ -90,7 +88,7 @@ public class UserService {
     user.getAddresses().add(newAddress);
 
     addressRepository.save(newAddress);
-    userRepository.save(user);
+    userRepositoryHibernateImp.save(user);
   }
 
 

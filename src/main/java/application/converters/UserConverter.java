@@ -53,6 +53,7 @@ public class UserConverter {
         userDTO.setPhone(phones);
       }
 
+      /*
       if(entity.getPermissionRoles() != null) {
         List<PermissionDTO> permissions = new ArrayList<>();
         for (Permission permission : entity.getPermissionRoles()) {
@@ -65,6 +66,8 @@ public class UserConverter {
         userDTO.setPermissionRoles(permissions);
       }
 
+
+       */
     ClientDTO clientDTO = new ClientDTO();
     if(entity.getClient()!= null){
       clientDTO.setId(entity.getClient().getId().intValue());

@@ -1,6 +1,7 @@
 package application.entities;
 
 import application.enuns.UserType;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,7 +16,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 
 @Entity
@@ -38,7 +42,7 @@ public class User {
   @Enumerated(EnumType.STRING)
   private UserType userType;
 
-  @OneToOne()
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinColumn(name="client_id")
   private Client client;
 
@@ -46,23 +50,15 @@ public class User {
 
   private String password;
 
-  @OneToMany
-  @JoinColumn(name = "user_id")
-  private List<Address> addresses;
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @Fetch(FetchMode.SUBSELECT)
+  private List<Address> addresses = new ArrayList<>();
 
 
-  @OneToMany
-  @JoinColumn(name = "user_id")
-  private List<Phone> phone;
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @Fetch(FetchMode.SUBSELECT)
+  private List<Phone> phone = new ArrayList<>();
 
-
-  @ManyToMany
-  @JoinTable(
-      name = "user_permission", // Nome da tabela de junção
-      joinColumns = @JoinColumn(name = "user_id"), // FK para a tabela User
-      inverseJoinColumns = @JoinColumn(name = "permission_id") // FK para Permission
-  )
-  private List<Permission> permissionRoles;
 
   public Long getId() {
     return id;
@@ -96,13 +92,6 @@ public class User {
     this.addresses = addresses;
   }
 
-  public List<Permission> getPermissionRoles() {
-    return permissionRoles;
-  }
-
-  public void setPermissionRoles(List<Permission> permissionRoles) {
-    this.permissionRoles = permissionRoles;
-  }
 
   public List<Phone> getPhone() {
     return phone;
